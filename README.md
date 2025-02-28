@@ -28,10 +28,22 @@ Ensemble: Combined predictions from multiple models (included in BitCoin.ipynb)
 
 Current Results
 Based on the latest training runs (500 epochs), model performance metrics are:
-Model       MSE          RMSE       MAE
-LSTM   521,122,524.29  22,828.11  10,394.35
-GRU    5,230,277.92    2,286.98   1,945.10
-BiLSTM 179,752,522.30  13,407.18  6,140.67
+
+LSTM Performance:
+MSE: 521122524.2887
+RMSE: 22828.1082
+MAE: 10394.3484
+
+GRU Performance:
+MSE: 5230277.9246
+RMSE: 2286.9801
+MAE: 1945.1007
+
+BiLSTM Performance:
+MSE: 179752522.2960
+RMSE: 13407.1817
+MAE: 6140.6669
+
 Key Findings: The GRU model significantly outperforms other architectures with an RMSE of approximately 2,287, compared to 22,828 for LSTM and 13,407 for Bidirectional LSTM.
 
 Features
