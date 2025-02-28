@@ -3,11 +3,13 @@ Bitcoin Price Prediction Project
 Overview
 
 This project aims to predict Bitcoin price movements using various deep learning models. The implementation leverages the Binance API for data collection and employs multiple neural network architectures to forecast Bitcoin prices.
+
 Note: This project is currently a work in progress. While it shows promising results, particularly with the GRU model, further fine-tuning and optimization are needed.
 
 Project Structure
 
 BitCoin.ipynb: Connects to Binance API, downloads the dataset, and runs LSTM, LightGBM, and ensemble models for 100 epochs
+
 BTCUSDT.ipynb: Uses the downloaded data to train LSTM, GRU, and Bidirectional LSTM models for 500 epochs
 Model files: Saved models (lstm_model.h5, gru_model.h5, bilstm_model.h5)
 Utility files: Scaler and column information for future predictions
@@ -30,18 +32,27 @@ Current Results
 Based on the latest training runs (500 epochs), model performance metrics are:
 
 LSTM Performance:
+
 MSE: 521122524.2887
+
 RMSE: 22828.1082
+
 MAE: 10394.3484
 
 GRU Performance:
+
 MSE: 5230277.9246
+
 RMSE: 2286.9801
+
 MAE: 1945.1007
 
 BiLSTM Performance:
+
 MSE: 179752522.2960
+
 RMSE: 13407.1817
+
 MAE: 6140.6669
 
 Key Findings: The GRU model significantly outperforms other architectures with an RMSE of approximately 2,287, compared to 22,828 for LSTM and 13,407 for Bidirectional LSTM.
