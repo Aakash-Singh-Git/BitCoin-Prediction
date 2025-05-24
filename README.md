@@ -1,63 +1,115 @@
 # Bitcoin Price Prediction Project
 
-## Overview
-This project aims to predict Bitcoin price movements using various deep learning models. The implementation leverages the Binance API for data collection and employs multiple neural network architectures to forecast Bitcoin prices.
+## 🧠 Overview
+This project focuses on predicting Bitcoin price movements using machine learning (ML) and deep learning (DL) techniques. Data is collected via the Binance API and stored in a CSV file. While traditional ML models were initially used, deep learning models—particularly GRU—demonstrated superior performance.
 
-**Note: This project is currently a work in progress. While it shows promising results, particularly with the GRU model, further fine-tuning and optimization are needed.**
+**⚠️ Note:** The project is currently a work in progress. The GRU model has shown excellent results and has been further optimized using Keras Tuner.
 
-## Project Structure
-- **BitCoin.ipynb**: Connects to Binance API, downloads the dataset, and runs LSTM, LightGBM, and ensemble models for 100 epochs
-- **BTCUSDT.ipynb**: Uses the downloaded data to train LSTM, GRU, and Bidirectional LSTM models for 500 epochs
-- **Model files**: Saved models (lstm_model.h5, gru_model.h5, bilstm_model.h5)
-- **Utility files**: Scaler and column information for future predictions
+---
 
-## Data Collection
-- Historical cryptocurrency data fetched via Binance API
-- Automatic downloading and preprocessing of Bitcoin price data
-- Technical indicators added to enhance model performance
+## 📁 Project Structure
 
-## Models Implemented
-1. **LSTM (Long Short-Term Memory)**: Traditional LSTM model for time series prediction
-2. **GRU (Gated Recurrent Unit)**: Currently showing the best performance
-3. **Bidirectional LSTM**: Captures patterns from both past and future states
-4. **LightGBM**: Gradient boosting framework (included in BitCoin.ipynb)
-5. **Ensemble**: Combined predictions from multiple models (included in BitCoin.ipynb)
+- **data.ipynb**: 
+  - Connects to the Binance API
+  - Downloads and stores historical BTC/USDT price data into a CSV file
+  - Generates technical indicators
 
-## Current Results
-Based on the latest training runs (500 epochs), model performance metrics are:
+- **ML.ipynb**: 
+  - Applies classical ML models (e.g., LightGBM)
+  - Results were suboptimal, leading to the use of DL models
 
-| Model  | MSE            | RMSE      | MAE       |
-|--------|----------------|-----------|-----------|
-| LSTM   | 521,122,524.29 | 22,828.11 | 10,394.35 |
-| GRU    | 5,230,277.92   | 2,286.98  | 1,945.10  |
-| BiLSTM | 179,752,522.30 | 13,407.18 | 6,140.67  |
+- **DL model.ipynb**:
+  - Implements and evaluates LSTM, GRU, and Bidirectional LSTM models
+  - Identifies GRU as the best-performing model
 
-**Key Findings**: The GRU model significantly outperforms other architectures with an RMSE of approximately 2,287, compared to 22,828 for LSTM and 13,407 for Bidirectional LSTM.
+- **final.ipynb**:
+  - Uses Keras AutoTuner to fine-tune the GRU model over 20 trials and 100 epochs
+  - Trains the optimal GRU model for final predictions
 
-## Features
-- Automatic data collection via Binance API
-- Technical indicator generation (moving averages, RSI, MACD, etc.)
-- Window-based prediction with configurable parameters
-- Model serialization for future use
-- Visualization of predictions
+- **Model Files**:
+  - `best_gru_model.h5`: Final trained GRU model
+  - Saved scalers and configuration files for prediction
 
-## Training Process
-The models are trained with the following configuration:
-- Window size: 24 time steps
-- Batch size: 32
-- Training/validation split: 80/20
-- Epochs: 500
-- Optimization algorithm: Adam
+---
 
-## Future Work
-- Hyperparameter optimization for the GRU model
-- Exploration of alternative architectures (Transformer, TCN)
-- Feature importance analysis
-- Implementation of early stopping and learning rate scheduling
-- Ensemble methods to combine strengths of multiple models
-- Real-time prediction system
+## 📊 Data Collection
 
-## Requirements
+- Source: **Binance API**
+- Data: BTC/USDT historical prices (open, high, low, close, volume)
+- Storage: Saved in a local CSV file via `data.ipynb`
+- Preprocessing: Includes normalization and technical indicator generation (RSI, MACD, moving averages, etc.)
+
+---
+
+## 🔍 Models Implemented
+
+### 📌 Machine Learning
+- **LightGBM**  
+  - Implemented in `ML.ipynb`  
+  - Did not yield competitive accuracy
+
+### 📌 Deep Learning
+- **LSTM (Long Short-Term Memory)**  
+- **GRU (Gated Recurrent Unit)** – *Best performing model*  
+- **Bidirectional LSTM**  
+- **Optimized GRU (via Keras AutoTuner)**
+
+---
+
+## ✅ Final Model Evaluation
+
+Recent Prediction Accuracy of the Tuned GRU Model:
+
+| Metric                          | Value     |
+|---------------------------------|-----------|
+| Mean Squared Error (MSE)        | 929,751.44 |
+| Root Mean Squared Error (RMSE)  | 964.24    |
+| Mean Absolute Error (MAE)       | 707.27    |
+| R-squared (R²)                  | 0.9722    |
+| Mean Absolute Percentage Error (MAPE) | 0.72% |
+
+---
+
+## ⚙️ Features
+
+- ✅ Automatic data collection from Binance
+- ✅ Technical indicators for enhanced prediction
+- ✅ Model serialization and reusability
+- ✅ GRU model optimization using Keras AutoTuner
+- ✅ Visualizations for prediction analysis
+
+---
+
+## 🏋️ Training Details
+
+- **Window Size**: 24 time steps
+- **Batch Size**: 32
+- **Epochs**: 100 (best model found via tuning)
+- **Optimizer**: Adam
+- **Validation Split**: 80/20
+- **Hyperparameter Tuning**: Keras AutoTuner (20 trials)
+
+---
+
+## 🚀 Usage Instructions
+
+1. **Run `data.ipynb`**  
+   → Collects and stores BTC/USDT data from Binance into CSV
+
+2. **Run `ML.ipynb`** *(optional)*  
+   → Trains traditional ML models (for comparison)
+
+3. **Run `DL model.ipynb`**  
+   → Trains LSTM, GRU, and BiLSTM models
+
+4. **Run `final.ipynb`**  
+   → Uses AutoTuner to find and train the best GRU model  
+   → Predicts and evaluates performance
+
+---
+
+## 🧰 Requirements
+
 - Python 3.7+
 - TensorFlow 2.x
 - pandas
@@ -65,12 +117,24 @@ The models are trained with the following configuration:
 - scikit-learn
 - plotly
 - python-binance
+- keras-tuner
 
-## Usage
-1. Run BitCoin.ipynb to fetch data from Binance API
-2. Execute BTCUSDT.ipynb to train and evaluate models
-3. Use the saved models for making predictions on new data
+---
 
-## Acknowledgments
-- Binance API for providing historical cryptocurrency data
-- TensorFlow and Keras for deep learning implementations
+## 🙏 Acknowledgments
+
+- **Binance API**: For providing real-time and historical cryptocurrency data
+- **TensorFlow & Keras**: For deep learning model implementations
+- **Keras Tuner**: For automated hyperparameter optimization
+
+---
+
+## 📌 Future Work
+
+- Early stopping and learning rate scheduling
+- Real-time price prediction system
+- Incorporating Transformer and TCN architectures
+- More advanced feature selection and importance analysis
+- Deployment as a web or desktop application
+
+---
